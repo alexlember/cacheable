@@ -2,7 +2,9 @@ package ru.lember.cacheable.entity;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
+@ToString(callSuper = true)
 public class Transition extends Entity implements HasMarket {
 
     @Getter
@@ -22,6 +24,7 @@ public class Transition extends Entity implements HasMarket {
         this.beginStatusId = beginStatusId;
         this.endStatusId = endStatusId;
         this.transitionRuleId = transitionRuleId;
+        this.id = composeId();
     }
 
     public static Transition of(@NonNull Market market,
@@ -51,5 +54,10 @@ public class Transition extends Entity implements HasMarket {
     public Transition andTransitionRuleId(@NonNull String endStatusId) {
         this.endStatusId = endStatusId;
         return this;
+    }
+
+    @Override
+    protected String composeId() {
+        return beginStatusId + "-" + transitionRuleId + "-" + endStatusId + "-" + market;
     }
 }

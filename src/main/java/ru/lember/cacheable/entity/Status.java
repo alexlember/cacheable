@@ -3,7 +3,7 @@ package ru.lember.cacheable.entity;
 import lombok.Getter;
 import lombok.NonNull;
 
-public class Status extends Entity {
+public class Status extends Entity implements HasMarket {
 
     @Getter
     private Market market;
@@ -11,9 +11,10 @@ public class Status extends Entity {
     @Getter
     private String name;
 
-    private Status(Market market, String name) {
+    private Status(@NonNull Market market, @NonNull String name) {
         this.market = market;
         this.name = name;
+        this.id = composeId();
     }
 
     public static Status of(@NonNull Market market, @NonNull String name) {
@@ -28,5 +29,10 @@ public class Status extends Entity {
     public Status andMarket(@NonNull Market market) {
         this.market = market;
         return this;
+    }
+
+    @Override
+    protected String composeId() {
+        return name + "-" + market;
     }
 }

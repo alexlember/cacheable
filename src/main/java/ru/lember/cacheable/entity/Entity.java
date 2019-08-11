@@ -1,12 +1,16 @@
 package ru.lember.cacheable.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
-@Data
+@ToString
 public abstract class Entity implements Serializable {
 
-    private String id;
+    @Getter
+    protected String id;
+
+    protected abstract String composeId();
 
 }

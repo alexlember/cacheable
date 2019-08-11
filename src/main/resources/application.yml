@@ -1,0 +1,13 @@
+server:
+  port : 8081
+
+app:
+  listExample:
+  - 'Первый'
+  - 'Второй'
+  mapExample:
+    keyOne: 'First'
+    keyTwo: 'Русское значение'
+    "[Русский ключ]": 'RussianKey'
+  stringPropery: 'Значение'
+  longProperty: 5000

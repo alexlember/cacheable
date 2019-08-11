@@ -6,7 +6,7 @@ import lombok.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransitionRule implements HasMarket {
+public class TransitionRule extends Entity implements HasMarket {
 
     @Getter
     private Market market;
@@ -23,6 +23,11 @@ public class TransitionRule implements HasMarket {
         this.name = name;
         this.dealerGroups = new ArrayList<>();
         this.clientGroups = new ArrayList<>();
+        this.id = composeId();
+    }
+
+    public static TransitionRule of(@NonNull Market market, @NonNull String name) {
+        return new TransitionRule(market, name);
     }
 
     public List<String> getDealerGroups() {
@@ -31,10 +36,6 @@ public class TransitionRule implements HasMarket {
 
     public List<String> getClientGroups() {
         return new ArrayList<>(clientGroups);
-    }
-
-    public static TransitionRule of(@NonNull Market market, @NonNull String name) {
-        return new TransitionRule(market, name);
     }
 
     public boolean addDealerGroup(@NonNull String dealerGroup) {
@@ -67,5 +68,10 @@ public class TransitionRule implements HasMarket {
 
     public void cleanDealerGroups() {
         this.dealerGroups.clear();
+    }
+
+    @Override
+    protected String composeId() {
+        return name + "-" + market;
     }
 }
